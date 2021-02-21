@@ -16,22 +16,27 @@ var firebaseConfig = {
   let save = document.getElementById('save')
   let div = document.getElementById('p')
   let num = 0
+  let num2=0
 
 
   database.ref().child('num').on('value' , function(snapshot){
 console.log(snapshot.val())
  num = snapshot.val()
-database.ref().child(num).on('value' , function(snapshot2){
-    console.log
-    let p = document.createElement('p')
-    if(snapshot.val()!=0){
-    p.innerText = snapshot2.val().toString()
-    div.appendChild(p)
-    }
+ num2 = snapshot.val()
+ while(num2>0){
+    database.ref().child(num2).on('value' , function(snapshot2){
+        console.log
+        let p = document.createElement('p')
+        if(snapshot.val()!=0){
+        p.innerText = snapshot2.val().toString()
+        div.appendChild(p)
+        }  
+    })
+    num2--
+      }
     
-    
-})
-  })
+ })
+
   save.addEventListener('click' , function(){
       num++
       if(link.value.length!=0){
