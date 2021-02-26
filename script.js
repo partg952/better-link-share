@@ -17,18 +17,23 @@ var firebaseConfig = {
   let div = document.getElementById('p')
   let num = 0
   let num2=0
+  let num3=0
+  let p2 = ''
 
 
   database.ref().child('num').on('value' , function(snapshot){
 console.log(snapshot.val())
- num = snapshot.val()
- num2 = snapshot.val()
+ num = snapshot.val();
+ num2 = snapshot.val();
+ num3 = snapshot.val();
+ 
  while(num2>0){
-    database.ref().child(num2).on('value' , function(snapshot2){
-        console.log
-        let p = document.createElement('p')
+    database.ref().child(num2).child('task').on('value' , function(snapshot2){
+      let p = document.createElement('p')
+      p2 = p
         if(snapshot.val()!=0){
-        p.innerText = snapshot2.val().toString()
+        p.innerText = snapshot2.val()
+        console.log(snapshot2.val() )
         div.appendChild(p)
         }  
     })
@@ -38,9 +43,17 @@ console.log(snapshot.val())
  })
 
   save.addEventListener('click' , function(){
-      num++
-      if(link.value.length!=0){
-          database.ref().child(num).set(link.value)
+      if(num!=0){
+        num++
+      }
+      
+     
+
+      if(link.value.length!=0||num==0){
+        
+       
+          database.ref().child(num).child('task').set(link.value)
           database.ref().child('num').set(num)
+          window.location.reload();
       }
   })
