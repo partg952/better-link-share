@@ -28,7 +28,7 @@ console.log(snapshot.val())
  num3 = snapshot.val();
  
  while(num2>0){
-    database.ref().child(num2).child('task').on('value' , function(snapshot2){
+    database.ref().child(num2).on('value' , function(snapshot2){
       let p = document.createElement('p')
       p2 = p
         if(snapshot.val()!=0){
@@ -52,7 +52,7 @@ console.log(snapshot.val())
       if(link.value.length!=0||num==0){
         
        
-          database.ref().child(num).child('task').set(link.value)
+          database.ref().child(num).set(link.value)
           database.ref().child('num').set(num)
           window.location.reload();
       }
