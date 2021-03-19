@@ -19,6 +19,7 @@ var firebaseConfig = {
   let num2=0
   let num3=0
   let p2 = ''
+  let array = []
 
 
   database.ref().child('num').on('value' , function(snapshot){
@@ -31,6 +32,7 @@ console.log(snapshot.val())
     database.ref().child(num2).on('value' , function(snapshot2){
       let p = document.createElement('p')
       p2 = p
+      
         if(snapshot.val()!=0){
         p.innerText = snapshot2.val()
         console.log(snapshot2.val() )
@@ -50,10 +52,12 @@ console.log(snapshot.val())
      
 
       if(link.value.length!=0||num==0){
-        
+        while(div.firstChild){
+          div.removeChild(div.firstChild)
+        }
        
           database.ref().child(num).set(link.value)
           database.ref().child('num').set(num)
-          window.location.reload();
+          
       }
   })
